@@ -46,7 +46,7 @@ Route::view('edit','pages.edit');
 
 //admin //
 
-Route::view('/','admin.index');
+Route::view('/admin','admin.index');
 
 Route::view('/main','admin.main');
 
@@ -115,6 +115,9 @@ Route::get('/', [adminshowController::class, 'movieShow'])->name('show');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/users', [adminController::class, 'updatePerson'])->name('users');
 
+use Illuminate\Support\Facades\Auth;
+
 Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

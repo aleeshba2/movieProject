@@ -52,7 +52,12 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'mobile' => ['required', 'string', 'max:15', 'regex:/^[0-9]{10,15}$/'], // Only digits, 10-15 characters
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:7000'], // Optional, image only, max size 2MB
+            'gender' => ['required', 'in:male,female,other'], // Must be one of the specified values
+            'age' => ['required', 'integer', 'min:1', 'max:120'], // Age between 1 and 120
         ]);
+        
     }
 
     /**
@@ -67,6 +72,11 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'mobile' => $data['mobile'],
+            'gender' => $data['gender'],
+            'age' => $data['age'],
+            'image' => $this->uploadImage($data['image']), // Call a method to handle image upload
         ]);
+        
     }
 }
